@@ -1,0 +1,29 @@
+module tb_instruction_mem;
+    reg  [31:0] addr;
+    wire [31:0] instr;
+
+    // Instantiate ONLY instruction_mem
+    instruction_mem uut (
+        .addr(addr),
+        .instr(instr)
+    );
+
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, tb_instruction_mem);
+
+        // Test Address 0x00 -> Expect 32'h20010005
+        addr = 32'h0000_0000;
+        #10;
+
+        // Test Address 0x04 -> Expect 32'h2002000A
+        addr = 32'h0000_0004;
+        #10;
+
+        // Test Address 0x08 -> Expect 32'h00221820
+        addr = 32'h0000_0008;
+        #10;
+
+        $finish;
+    end
+endmodule
